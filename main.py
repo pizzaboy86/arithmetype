@@ -1,7 +1,5 @@
 import math
 import random
-import matplotlib.pyplot as matplot
-import numpy 
 
 axioms = [
     "^",
