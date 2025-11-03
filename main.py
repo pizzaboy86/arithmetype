@@ -4,6 +4,7 @@ import time
 
 coefScaling = 3
 evalScaling = 5
+roundTo = 5
 
 axioms = {
     "^" : "**",
@@ -50,7 +51,7 @@ def genProblem(highestCoef, highestEval):
             toEval[toEval.index(char)] = axioms[char]
             continue
 
-    answer = '%.2f' % eval("".join(toEval))
+    answer = f'%.{roundTo}f' % eval("".join(toEval))
     problem = problem + " ; when x = " + str(evaluation)
     return "".join(problem), answer
 
@@ -62,11 +63,11 @@ def startGame():
         print(problem)
         rawInput = input()
         try:
-            userAnswer = '%.2f' % float(rawInput)
+            userAnswer = f'%.{roundTo}f' % float(rawInput)
         except:
             userAnswer = None
         else:
-            userAnswer = '%.2f' % float(rawInput)
+            userAnswer = f'%.{roundTo}f' % float(rawInput)
     
         if userAnswer == answer:
             score += 1
@@ -86,11 +87,14 @@ else:
     if spacedProblems == "y":
         templates = spacedTemplates
     
-    print("Coefficient Scaling (higher is easier): ")
+    print("Coefficient scaling (higher is easier): ")
     coefScaling = int(input())
     
-    print("Evaluation Scaling (higher is easier): ")
+    print("Evaluation scaling (higher is easier): ")
     evalScaling = int(input())
+    
+    print("Decimal places: ")
+    roundTo = int(input())
     
     startGame()
     
