@@ -2,17 +2,29 @@ import math
 import random
 import time
 
+coefScaling = 3
+evalScaling = 5
+
 axioms = {
     "^" : "**",
 }
 
-templates = [
+spacedTemplates = [
     "n * x",
     "n / x",
     "x ^ n",
     "n ^ x",
     "n + x",
     "n - x"
+]
+
+templates = [
+    "n*x",
+    "n/x",
+    "x^n",
+    "n^x",
+    "n+x",
+    "n-x"
 ]
 
 def genProblem(highestCoef, highestEval):
@@ -41,28 +53,48 @@ def genProblem(highestCoef, highestEval):
     answer = '%.2f' % eval("".join(toEval))
     problem = problem + " ; when x = " + str(evaluation)
     return "".join(problem), answer
-    
-score = 0
-print("Score: " + str(score))
 
-while True:
-    problem, answer = genProblem(math.floor(score/3)+1, math.floor(score/5)+2)
+def startGame():
+    score = 0
+    while True:
+        problem, answer = genProblem(math.floor(score/coefScaling)+1, math.floor(score/evalScaling)+2)
     
-    print(problem)
-    rawInput = input()
-    try:
-        userAnswer = '%.2f' % float(rawInput)
-    except:
-        userAnswer = None
-    else:
-        userAnswer = '%.2f' % float(rawInput)
+        print(problem)
+        rawInput = input()
+        try:
+            userAnswer = '%.2f' % float(rawInput)
+        except:
+            userAnswer = None
+        else:
+            userAnswer = '%.2f' % float(rawInput)
     
-    if userAnswer == answer:
-        score += 1
-        print("\033[92mCorrect!\033[00m Score : " + str(score))
-    else:
-        print("\033[91mIncorrect.\033[00m Answer: " + str(answer))
+        if userAnswer == answer:
+            score += 1
+            print("\033[92mCorrect!\033[00m Score : " + str(score))
+        else:
+            print("\033[91mIncorrect.\033[00m Answer: " + str(answer))
         
+
+# init
+print("Play with defaults? (y/n)")
+defaultPlay = input()
+if defaultPlay == "y":
+    startGame()
+else:
+    print("Easy read problems? (y/n)")
+    spacedProblems = input()
+    if spacedProblems == "y":
+        templates = spacedTemplates
+    
+    print("Coefficient Scaling (higher is easier): ")
+    coefScaling = int(input())
+    
+    print("Evaluation Scaling (higher is easier): ")
+    evalScaling = int(input())
+    
+    startGame()
+    
+
         
         
         
