@@ -1,5 +1,6 @@
 import math
 import random
+import time
 
 axioms = {
     "^" : "**",
@@ -11,8 +12,7 @@ templates = [
     "x^n",
     "n^x",
     "n+x",
-    "n-x",
-    "(n/x)*(n^x)"
+    "n-x"
 ]
 
 def genProblem(highestCoef, highestEval):
@@ -25,8 +25,8 @@ def genProblem(highestCoef, highestEval):
         if char == "n":
             problem[problem.index(char)] = str(coefficient)
     
-    toEval = problem # same memory position, changes both for some reason!
-
+    problem = "".join(problem)
+    toEval = list(problem)
     for char in toEval:
         if char == "x":
             toEval[toEval.index(char)] = str(evaluation)
@@ -38,18 +38,20 @@ def genProblem(highestCoef, highestEval):
             toEval[toEval.index(char)] = axioms[char]
             continue
 
-    answer = eval("".join(toEval))
-    problem = str(problem) + " ; when x = " + str(evaluation)
+    answer = '%.2f' % eval("".join(toEval))
+    problem = problem + " ; when x = " + str(evaluation)
+    return "".join(problem), answer
 
-    print("Problem: " + "".join(problem))
-    print("Answer: " + str(answer))
-    return problem, answer
+score = 0
 
-
-for i in range(10):
-    genProblem(10,10)
-
-    #make i/o
-
+while True:
+    problem, answer = genProblem(math.floor(score/5)+1, math.floor(score/10)+2)
     
-
+    print(problem)
+    userAnswer = '%.2f' % float(input())
+    
+    if userAnswer == answer:
+        print("Correct!")
+        score += 1
+    else:
+        print("Incorrect, answer: " + str(answer))
