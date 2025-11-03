@@ -59,10 +59,9 @@ while True:
     
     if userAnswer == answer:
         score += 1
-        print("Correct! Score : " + str(score))
+        print("\033[92mCorrect!\033[00m Score : " + str(score))
     else:
-        print("Incorrect, answer: " + str(answer))
-        
+        print("\033[91mIncorrect.\033[00m Answer: " + str(answer))
         
         
         
