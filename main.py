@@ -7,12 +7,12 @@ axioms = {
 }
 
 templates = [
-    "n*x",
-    "n/x",
-    "x^n",
-    "n^x",
-    "n+x",
-    "n-x"
+    "n * x",
+    "n / x",
+    "x ^ n",
+    "n ^ x",
+    "n + x",
+    "n - x"
 ]
 
 def genProblem(highestCoef, highestEval):
@@ -41,17 +41,34 @@ def genProblem(highestCoef, highestEval):
     answer = '%.2f' % eval("".join(toEval))
     problem = problem + " ; when x = " + str(evaluation)
     return "".join(problem), answer
-
+    
 score = 0
+print("Score: " + str(score))
 
 while True:
-    problem, answer = genProblem(math.floor(score/5)+1, math.floor(score/10)+2)
+    problem, answer = genProblem(math.floor(score/3)+1, math.floor(score/5)+2)
     
     print(problem)
-    userAnswer = '%.2f' % float(input())
+    rawInput = input()
+    try:
+        userAnswer = '%.2f' % float(rawInput)
+    except:
+        userAnswer = None
+    else:
+        userAnswer = '%.2f' % float(rawInput)
     
     if userAnswer == answer:
-        print("Correct!")
         score += 1
+        print("Correct! Score : " + str(score))
     else:
         print("Incorrect, answer: " + str(answer))
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        #
